@@ -54,7 +54,9 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/aosqp/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
     vendor/aosqp/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lineagehw.xml \
-    vendor/aosqp/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml
+    vendor/aosqp/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml \
+    vendor/aosqp/config/permissions/privapp-permissions-aosqp-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-aosqp.xml \
+    vendor/aosqp/config/permissions/privapp-permissions-aosqp-system.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-aosqp.xml
 
 # Copy all aosqp init rc files
 $(foreach f,$(wildcard vendor/aosqp/prebuilt/common/etc/init/*.rc),\
