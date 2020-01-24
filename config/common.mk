@@ -218,4 +218,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     StatusBarLyricExt
 
+# Charging animation
+include vendor/qassa/config/charger.mk
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
