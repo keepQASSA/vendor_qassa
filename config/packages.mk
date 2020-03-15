@@ -7,7 +7,8 @@ PRODUCT_PACKAGES += \
     Gallery2 \
     LatinIME \
     messaging \
-    WallpaperPicker2
+    WallpaperPicker2 \
+    MatLog
 
 # GApps
 ifneq ($(WITH_GAPPS),true)
