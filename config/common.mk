@@ -221,4 +221,8 @@ PRODUCT_PACKAGES += \
 # Charging animation
 include vendor/qassa/config/charger.mk
 
+# Ad-block hosts
+PRODUCT_COPY_FILES += \
+    vendor/qassa/prebuilt/common/etc/hosts.qassa_adblock:system/etc/hosts.qassa_adblock
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
