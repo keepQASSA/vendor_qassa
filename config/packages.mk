@@ -16,3 +16,7 @@ ifneq ($(WITH_GAPPS),true)
 PRODUCT_PACKAGES += \
     Launcher3
 endif
+
+# QASSA Ad-block
+PRODUCT_PACKAGES += \
+    hosts.qassa_adblock
