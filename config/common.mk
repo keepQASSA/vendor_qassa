@@ -192,4 +192,8 @@ include vendor/qassa/config/packages.mk
 PRODUCT_PACKAGES += \
     GamingMode
 
+# ShadyQuickStep
+PRODUCT_PACKAGES += \
+    ShadyQuickStep
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
