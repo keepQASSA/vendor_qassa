@@ -186,4 +186,8 @@ include vendor/google-customization/config.mk
 # Packages
 include vendor/qassa/config/packages.mk
 
+# GamingMode
+PRODUCT_PACKAGES += \
+    GamingMode
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
