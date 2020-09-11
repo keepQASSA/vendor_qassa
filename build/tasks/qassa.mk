@@ -17,9 +17,11 @@
 
 QASSA_TARGET_PACKAGE := $(PRODUCT_OUT)/$(QASSA_VERSION).zip
 
+MD5 := prebuilts/build-tools/path/$(HOST_OS)-x86/md5sum
+
 .PHONY: qassa
 qassa: $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) mv $(INTERNAL_OTA_PACKAGE_TARGET) $(QASSA_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(QASSA_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(QASSA_TARGET_PACKAGE).md5sum
+	$(hide) $(MD5) $(QASSA_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(QASSA_TARGET_PACKAGE).md5sum
         $(hide) ./vendor/qassa/scripts/generate_json_build_info.sh $(QASSA_TARGET_PACKAGE)
 	@echo "Package Complete: $(QASSA_TARGET_PACKAGE)" >&2
