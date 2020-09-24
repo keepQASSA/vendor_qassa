@@ -1,5 +1,5 @@
 # Copyright (C) 2017 Unlegacy-Android
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017,2020 The LineageOS Project
 # Copyright (C) 2018 The PixelExperience Project
 # Copyright (C) 2022 QASSA
 #
@@ -17,7 +17,7 @@
 
 QASSA_TARGET_PACKAGE := $(PRODUCT_OUT)/$(QASSA_VERSION).zip
 
-MD5 := prebuilts/build-tools/path/$(HOST_OS)-x86/md5sum
+MD5 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/md5sum
 
 .PHONY: qassa
 qassa: $(INTERNAL_OTA_PACKAGE_TARGET)
