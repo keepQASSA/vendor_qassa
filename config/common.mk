@@ -98,6 +98,9 @@ PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# Flatten APEXs for performance
+OVERRIDE_TARGET_FLATTEN_APEX := true
+
 # Filesystems tools
 PRODUCT_PACKAGES += \
     fsck.exfat \
