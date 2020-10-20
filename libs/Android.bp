@@ -1,5 +1,5 @@
 android_library_import {
     name: "overscroll-decor",
-    aars: ["overscroll-decor-android-1.1.0.aar"],
+    aars: ["liboverscroll-release.aar"],
     sdk_version: "current",
 }
