@@ -196,4 +196,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ShadyQuickStep
 
+# Launcher overlay
+PRODUCT_PACKAGES += \
+    ShadyQuickStepAppLockOverlay
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
