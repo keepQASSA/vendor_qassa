@@ -210,4 +210,8 @@ include vendor/qassa/config/packages.mk
 PRODUCT_PACKAGES += \
     GamingMode
 
+# SoftAPManager
+PRODUCT_PACKAGES += \
+    SoftAPManager
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
