@@ -200,6 +200,15 @@ PRODUCT_PACKAGES += \
 
 endif
 
+# Lawnchair
+ifeq ($(TARGET_LAUNCHER),lawnchair)
+include vendor/qassa/prebuilt/app/Lawnchair/lawnchair.mk
+else
+     $(warning TARGET_LAUNCHER is invalid or undefined, building Launcher3 as default launcher)
+PRODUCT_PACKAGES += \
+    Launcher3
+endif
+
 # keepQASSA
 include vendor/keepQASSA/config.mk
 
