@@ -36,9 +36,6 @@
         <item>com.google.android.apps.wallpaper/com.android.customization.picker.CustomizationPickerActivity</item>
     </string-array>
 
-    <string name="config_mms_user_agent">Android</string>
-    <string name="config_mms_user_agent_profile_url">http://www.google.com/oha/rdf/ua-profile-kila.xml</string>
-
     <!-- Set this to true to enable the platform's auto-power-save modes like doze and
          app standby.  These are not enabled by default because they require a standard
          cloud-to-device messaging service for apps to interact correctly with the modes
