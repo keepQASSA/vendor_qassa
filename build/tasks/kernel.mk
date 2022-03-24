@@ -1,6 +1,7 @@
 # Copyright (C) 2012 The CyanogenMod Project
 #           (C) 2017-2020 The LineageOS Project
 #           (C) 2019 The PixelExperience Project
+#           (C) 2022 AOSQP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

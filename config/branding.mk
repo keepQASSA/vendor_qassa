@@ -1,24 +1,22 @@
 # Set all versions
-CUSTOM_BUILD_TYPE ?= UNOFFICIAL
+AOSQP_BUILD_TYPE ?= UNOFFICIAL
 
-CUSTOM_DATE_YEAR := $(shell date -u +%Y)
-CUSTOM_DATE_MONTH := $(shell date -u +%m)
-CUSTOM_DATE_DAY := $(shell date -u +%d)
-CUSTOM_DATE_HOUR := $(shell date -u +%H)
-CUSTOM_DATE_MINUTE := $(shell date -u +%M)
-CUSTOM_BUILD_DATE_UTC := $(shell date -d '$(CUSTOM_DATE_YEAR)-$(CUSTOM_DATE_MONTH)-$(CUSTOM_DATE_DAY) $(CUSTOM_DATE_HOUR):$(CUSTOM_DATE_MINUTE) UTC' +%s)
-CUSTOM_BUILD_DATE := $(CUSTOM_DATE_YEAR)$(CUSTOM_DATE_MONTH)$(CUSTOM_DATE_DAY)-$(CUSTOM_DATE_HOUR)$(CUSTOM_DATE_MINUTE)
+AOSQP_DATE_YEAR := $(shell date -u +%Y)
+AOSQP_DATE_MONTH := $(shell date -u +%m)
+AOSQP_DATE_DAY := $(shell date -u +%d)
+AOSQP_DATE_HOUR := $(shell date -u +%H)
+AOSQP_DATE_MINUTE := $(shell date -u +%M)
+AOSQP_BUILD_DATE_UTC := $(shell date -d '$(AOSQP_DATE_YEAR)-$(AOSQP_DATE_MONTH)-$(AOSQP_DATE_DAY) $(AOSQP_DATE_HOUR):$(AOSQP_DATE_MINUTE) UTC' +%s)
+AOSQP_BUILD_DATE := $(AOSQP_DATE_YEAR)$(AOSQP_DATE_MONTH)$(AOSQP_DATE_DAY)-$(AOSQP_DATE_HOUR)$(AOSQP_DATE_MINUTE)
 
-CUSTOM_PLATFORM_VERSION := 10.0
+TARGET_PRODUCT_SHORT := $(subst aosqp_,,$(AOSQP_BUILD))
 
-TARGET_PRODUCT_SHORT := $(subst aosp_,,$(CUSTOM_BUILD))
+AOSQP_VERSION := AOSQP_v1.0_$(AOSQP_BUILD)-$(AOSQP_BUILD_DATE)-$(AOSQP_BUILD_TYPE)
+AOSQP_VERSION_PROP := Q
 
-CUSTOM_VERSION := PixelExperience_Plus_$(CUSTOM_BUILD)-$(CUSTOM_PLATFORM_VERSION)-$(CUSTOM_BUILD_DATE)-$(CUSTOM_BUILD_TYPE)
-CUSTOM_VERSION_PROP := ten_plus
-
-CUSTOM_PROPERTIES := \
-    org.pixelexperience.version=$(CUSTOM_VERSION_PROP) \
-    org.pixelexperience.version.display=$(CUSTOM_VERSION) \
-    org.pixelexperience.build_date=$(CUSTOM_BUILD_DATE) \
-    org.pixelexperience.build_date_utc=$(CUSTOM_BUILD_DATE_UTC) \
-    org.pixelexperience.build_type=$(CUSTOM_BUILD_TYPE)
+AOSQP_PROPERTIES := \
+    ro.aosqp.version=$(AOSQP_VERSION_PROP) \
+    ro.aosqp.version.display=$(AOSQP_VERSION) \
+    ro.aosqp.build_date=$(AOSQP_BUILD_DATE) \
+    ro.aosqp.build_date_utc=$(AOSQP_BUILD_DATE_UTC) \
+    ro.aosqp.build_type=$(AOSQP_BUILD_TYPE)

@@ -1,4 +1,4 @@
-PRODUCT_BRAND ?= PixelExperience
+PRODUCT_BRAND ?= AOSQP
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
@@ -38,11 +38,11 @@ endif
 
 # Binaries for file-based incremental ota
 PRODUCT_COPY_FILES += \
-    vendor/aosp/prebuilt/common/bin/busybox:install/bin/busybox \
-    vendor/aosp/prebuilt/common/bin/mount_all.sh:install/bin/mount_all.sh \
-    vendor/aosp/prebuilt/common/bin/mount_functions.sh:install/bin/mount_functions.sh \
-    vendor/aosp/prebuilt/common/bin/setup_busybox.sh:install/bin/setup_busybox.sh \
-    vendor/aosp/prebuilt/common/bin/umount_all.sh:install/bin/umount_all.sh
+    vendor/aosqp/prebuilt/common/bin/busybox:install/bin/busybox \
+    vendor/aosqp/prebuilt/common/bin/mount_all.sh:install/bin/mount_all.sh \
+    vendor/aosqp/prebuilt/common/bin/mount_functions.sh:install/bin/mount_functions.sh \
+    vendor/aosqp/prebuilt/common/bin/setup_busybox.sh:install/bin/setup_busybox.sh \
+    vendor/aosqp/prebuilt/common/bin/umount_all.sh:install/bin/umount_all.sh
 
 # OTA
 ifneq ($(TARGET_BUILD_VARIANT),user)
@@ -52,21 +52,21 @@ endif
 
 # Some permissions
 PRODUCT_COPY_FILES += \
-    vendor/aosp/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
-    vendor/aosp/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lineagehw.xml \
-    vendor/aosp/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml
+    vendor/aosqp/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
+    vendor/aosqp/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lineagehw.xml \
+    vendor/aosqp/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml
 
-# Copy all custom init rc files
-$(foreach f,$(wildcard vendor/aosp/prebuilt/common/etc/init/*.rc),\
+# Copy all aosqp init rc files
+$(foreach f,$(wildcard vendor/aosqp/prebuilt/common/etc/init/*.rc),\
     $(eval PRODUCT_COPY_FILES += $(f):system/etc/init/$(notdir $f)))
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
-    vendor/aosp/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
+    vendor/aosqp/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
 
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
-    vendor/aosp/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
+    vendor/aosqp/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -82,7 +82,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Power whitelist
 PRODUCT_COPY_FILES += \
-    vendor/aosp/config/permissions/custom-power-whitelist.xml:system/etc/sysconfig/custom-power-whitelist.xml
+    vendor/aosqp/config/permissions/custom-power-whitelist.xml:system/etc/sysconfig/custom-power-whitelist.xml
 
 # Do not include art debug targets
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
@@ -113,8 +113,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     media.recorder.show_manufacturer_and_model=true
 
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/aosp/overlay
-DEVICE_PACKAGE_OVERLAYS += vendor/aosp/overlay/common
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/aosqp/overlay
+DEVICE_PACKAGE_OVERLAYS += vendor/aosqp/overlay/common
 
 # Cutout control overlay
 PRODUCT_PACKAGES += \
@@ -170,10 +170,10 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.face.moto_unlock_service=$(TARGET_FACE_UNLOCK_SUPPORTED)
 
 # Branding
-include vendor/aosp/config/branding.mk
+include vendor/aosqp/config/branding.mk
 
 # OTA
-include vendor/aosp/config/ota.mk
+include vendor/aosqp/config/ota.mk
 
 # GApps
 include vendor/gapps/config.mk
