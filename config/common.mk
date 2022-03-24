@@ -172,9 +172,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # Branding
 include vendor/aosqp/config/branding.mk
 
-# OTA
-include vendor/aosqp/config/ota.mk
-
 # GApps
 include vendor/gapps/config.mk
 

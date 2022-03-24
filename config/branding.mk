@@ -1,6 +1,4 @@
 # Set all versions
-AOSQP_BUILD_TYPE ?= UNOFFICIAL
-
 AOSQP_DATE_YEAR := $(shell date -u +%Y)
 AOSQP_DATE_MONTH := $(shell date -u +%m)
 AOSQP_DATE_DAY := $(shell date -u +%d)
@@ -11,7 +9,7 @@ AOSQP_BUILD_DATE := $(AOSQP_DATE_YEAR)$(AOSQP_DATE_MONTH)$(AOSQP_DATE_DAY)-$(AOS
 
 TARGET_PRODUCT_SHORT := $(subst aosqp_,,$(AOSQP_BUILD))
 
-AOSQP_VERSION := AOSQP_v1.0_$(AOSQP_BUILD)-$(AOSQP_BUILD_DATE)-$(AOSQP_BUILD_TYPE)
+AOSQP_VERSION := AOSQP_v1.0_$(AOSQP_BUILD)-$(AOSQP_BUILD_DATE)-QASSA
 AOSQP_VERSION_PROP := Q
 
 AOSQP_PROPERTIES := \
@@ -19,4 +17,4 @@ AOSQP_PROPERTIES := \
     ro.aosqp.version.display=$(AOSQP_VERSION) \
     ro.aosqp.build_date=$(AOSQP_BUILD_DATE) \
     ro.aosqp.build_date_utc=$(AOSQP_BUILD_DATE_UTC) \
-    ro.aosqp.build_type=$(AOSQP_BUILD_TYPE)
+    ro.aosqp.build_type=QASSA
