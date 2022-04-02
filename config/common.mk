@@ -173,12 +173,17 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 include vendor/aosqp/config/branding.mk
 
 # GApps
+ifeq ($(WITH_GAPPS),true)
 include vendor/gapps/config.mk
+endif
 
 # Pixel Style
 include vendor/pixelstyle/config.mk
 
 # Customization
 include vendor/google-customization/config.mk
+
+# Packages
+include vendor/aosqp/config/packages.mk
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
