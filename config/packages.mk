@@ -6,4 +6,5 @@ PRODUCT_PACKAGES += \
     DeskClock \
     Gallery2 \
     LatinIME \
-    messaging
+    messaging \
+    WallpaperPicker2
