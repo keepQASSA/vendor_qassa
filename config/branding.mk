@@ -1,5 +1,5 @@
 # Set all versions
-AOSQP_VERSION_NUMBER := v1.0
+AOSQP_VERSION_NUMBER := v2.0
 
 AOSQP_DATE_YEAR := $(shell date -u +%Y)
 AOSQP_DATE_MONTH := $(shell date -u +%m)
