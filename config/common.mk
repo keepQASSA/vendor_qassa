@@ -1,4 +1,4 @@
-PRODUCT_BRAND ?= AOSQP
+PRODUCT_BRAND ?= QASSA
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
@@ -38,11 +38,11 @@ endif
 
 # Binaries for file-based incremental ota
 PRODUCT_COPY_FILES += \
-    vendor/aosqp/prebuilt/common/bin/busybox:install/bin/busybox \
-    vendor/aosqp/prebuilt/common/bin/mount_all.sh:install/bin/mount_all.sh \
-    vendor/aosqp/prebuilt/common/bin/mount_functions.sh:install/bin/mount_functions.sh \
-    vendor/aosqp/prebuilt/common/bin/setup_busybox.sh:install/bin/setup_busybox.sh \
-    vendor/aosqp/prebuilt/common/bin/umount_all.sh:install/bin/umount_all.sh
+    vendor/qassa/prebuilt/common/bin/busybox:install/bin/busybox \
+    vendor/qassa/prebuilt/common/bin/mount_all.sh:install/bin/mount_all.sh \
+    vendor/qassa/prebuilt/common/bin/mount_functions.sh:install/bin/mount_functions.sh \
+    vendor/qassa/prebuilt/common/bin/setup_busybox.sh:install/bin/setup_busybox.sh \
+    vendor/qassa/prebuilt/common/bin/umount_all.sh:install/bin/umount_all.sh
 
 # OTA
 ifneq ($(TARGET_BUILD_VARIANT),user)
@@ -52,21 +52,21 @@ endif
 
 # Some permissions
 PRODUCT_COPY_FILES += \
-    vendor/aosqp/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
-    vendor/aosqp/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lineagehw.xml \
-    vendor/aosqp/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml
+    vendor/qassa/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
+    vendor/qassa/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lineagehw.xml \
+    vendor/qassa/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml
 
-# Copy all aosqp init rc files
-$(foreach f,$(wildcard vendor/aosqp/prebuilt/common/etc/init/*.rc),\
+# Copy all qassa init rc files
+$(foreach f,$(wildcard vendor/qassa/prebuilt/common/etc/init/*.rc),\
     $(eval PRODUCT_COPY_FILES += $(f):system/etc/init/$(notdir $f)))
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
-    vendor/aosqp/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
+    vendor/qassa/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
 
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
-    vendor/aosqp/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
+    vendor/qassa/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -82,7 +82,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Power whitelist
 PRODUCT_COPY_FILES += \
-    vendor/aosqp/config/permissions/custom-power-whitelist.xml:system/etc/sysconfig/custom-power-whitelist.xml
+    vendor/qassa/config/permissions/custom-power-whitelist.xml:system/etc/sysconfig/custom-power-whitelist.xml
 
 # Do not include art debug targets
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
@@ -113,8 +113,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     media.recorder.show_manufacturer_and_model=true
 
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/aosqp/overlay
-DEVICE_PACKAGE_OVERLAYS += vendor/aosqp/overlay/common
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/qassa/overlay
+DEVICE_PACKAGE_OVERLAYS += vendor/qassa/overlay/common
 
 # Cutout control overlay
 PRODUCT_PACKAGES += \
@@ -170,7 +170,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.face.moto_unlock_service=$(TARGET_FACE_UNLOCK_SUPPORTED)
 
 # Branding
-include vendor/aosqp/config/branding.mk
+include vendor/qassa/config/branding.mk
 
 # GApps
 ifeq ($(WITH_GAPPS),true)
@@ -184,6 +184,6 @@ include vendor/pixelstyle/config.mk
 include vendor/google-customization/config.mk
 
 # Packages
-include vendor/aosqp/config/packages.mk
+include vendor/qassa/config/packages.mk
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk

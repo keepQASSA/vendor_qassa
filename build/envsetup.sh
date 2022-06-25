@@ -1,22 +1,22 @@
-function __print_aosqp_functions_help() {
+function __print_qassa_functions_help() {
 cat <<EOF
 Additional functions:
 - cout:            Changes directory to out.
 - mmp:             Builds all of the modules in the current directory and pushes them to the device.
 - mmap:            Builds all of the modules in the current directory and its dependencies, then pushes the package to the device.
 - mmmp:            Builds all of the modules in the supplied directories and pushes them to the device.
-- aosqpgerrit:     A Git wrapper that fetches/pushes patch from/to AOSQP Gerrit Review.
-- aosqprebase:     Rebase a Gerrit change and push it again.
-- aosqpremote:      Add git remote for matching AOSQP repository.
+- keepqassagerrit:     A Git wrapper that fetches/pushes patch from/to keepQASSA Gerrit Review.
+- keepqassarebase:     Rebase a Gerrit change and push it again.
+- keepqassaremote:      Add git remote for matching keepQASSA repository.
 - cafremote:       Add git remote for matching CodeAurora repository.
-- githubremote:    Add git remote for AOSQP Github.
+- githubremote:    Add git remote for keepQASSA Github.
 - mka:             Builds using SCHED_BATCH on all processors.
 - mkap:            Builds the module(s) using mka and pushes them to the device.
 - cmka:            Cleans and builds using mka.
 - repodiff:        Diff 2 different branches or tags within the same repo
 - repolastsync:    Prints date and time of last repo sync.
 - reposync:        Parallel repo sync using ionice and SCHED_BATCH.
-- repopick:        Utility to fetch changes from AOSQP Gerrit.
+- repopick:        Utility to fetch changes from keepQASSA Gerrit.
 - installboot:     Installs a boot.img to the connected device.
 - installrecovery: Installs a recovery.img to the connected device.
 EOF
@@ -81,7 +81,7 @@ function breakfast()
                 variant="userdebug"
             fi
 
-            lunch aosqp_$target-$variant
+            lunch qassa_$target-$variant
         fi
     fi
     return $?
@@ -92,7 +92,7 @@ alias bib=breakfast
 function eat()
 {
     if [ "$OUT" ] ; then
-        ZIPPATH=`ls -tr "$OUT"/AOSQP-*.zip | tail -1`
+        ZIPPATH=`ls -tr "$OUT"/qassa-*.zip | tail -1`
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
             return 1
@@ -100,13 +100,13 @@ function eat()
         echo "Waiting for device..."
         adb wait-for-device-recovery
         echo "Found device"
-        if (adb shell getprop ro.aosqp.device | grep -q "$AOSQP_BUILD"); then
+        if (adb shell getprop ro.qassa.device | grep -q "$QASSA_BUILD"); then
             echo "Rebooting to sideload for install"
             adb reboot sideload-auto-reboot
             adb wait-for-sideload
             adb sideload $ZIPPATH
         else
-            echo "The connected device does not appear to be $AOSQP_BUILD, run away!"
+            echo "The connected device does not appear to be $QASSA_BUILD, run away!"
         fi
         return $?
     else
@@ -230,14 +230,14 @@ function dddclient()
    fi
 }
 
-function aosqpremote()
+function keepqassaremote()
 {
     if ! git rev-parse --git-dir &> /dev/null
     then
         echo ".git directory not found. Please run this from the root directory of the Android repository you wish to set up."
         return 1
     fi
-    git remote rm aosqp 2> /dev/null
+    git remote rm keepqassa 2> /dev/null
     local PROJECT=$(pwd -P | sed -e "s#$ANDROID_BUILD_TOP\/##; s#-caf.*##; s#\/default##")
     # Google moved the repo location in Oreo
     if [ $PROJECT = "build/make" ]
@@ -286,15 +286,15 @@ function githubremote()
         return 1
     fi
     git remote rm github 2> /dev/null
-    local REMOTE=$(git config --get remote.aosqp.projectname)
+    local REMOTE=$(git config --get remote.keepqassa.projectname)
     if [ -z "$REMOTE" ]
     then
-        local REMOTE=$(git config --get remote.aosqp.projectname)
+        local REMOTE=$(git config --get remote.keepqassa.projectname)
     fi
 
     local PROJECT=$(echo $REMOTE | sed -e "s#platform/#android/#g; s#/#_#g")
 
-    git remote add github https://github.com/AOSQP/$PROJECT
+    git remote add github https://github.com/keepQASSA/$PROJECT
     echo "Remote 'github' created"
 }
 
@@ -325,14 +325,14 @@ function installboot()
     adb wait-for-device-recovery
     adb root
     adb wait-for-device-recovery
-    if (adb shell getprop ro.aosqp.device | grep -q "$LINEAGE_BUILD");
+    if (adb shell getprop ro.qassa.device | grep -q "$LINEAGE_BUILD");
     then
         adb push $OUT/boot.img /cache/
         adb shell dd if=/cache/boot.img of=$PARTITION
         adb shell rm -rf /cache/boot.img
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $AOSQP_BUILD, run away!"
+        echo "The connected device does not appear to be $QASSA_BUILD, run away!"
     fi
 }
 
@@ -363,18 +363,18 @@ function installrecovery()
     adb wait-for-device-recovery
     adb root
     adb wait-for-device-recovery
-    if (adb shell getprop ro.aosqp.device | grep -q "$LINEAGE_BUILD");
+    if (adb shell getprop ro.qassa.device | grep -q "$LINEAGE_BUILD");
     then
         adb push $OUT/recovery.img /cache/
         adb shell dd if=/cache/recovery.img of=$PARTITION
         adb shell rm -rf /cache/recovery.img
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $AOSQP_BUILD, run away!"
+        echo "The connected device does not appear to be $QASSA_BUILD, run away!"
     fi
 }
 
-function aosqpgerrit() {
+function keepqassagerrit() {
     if [ "$(__detect_shell)" = "zsh" ]; then
         # zsh does not define FUNCNAME, derive from funcstack
         local FUNCNAME=$funcstack[1]
@@ -384,17 +384,17 @@ function aosqpgerrit() {
         $FUNCNAME help
         return 1
     fi
-    local user=`git config --get review.gerrit.aosqp.org.username`
-    local review=`git config --get remote.aosqp.review`
+    local user=`git config --get review.gerrit.keepqassa.org.username`
+    local review=`git config --get remote.keepqassa.review`
     local remote_branch=Q
     if [ -z "$review" ]
     then
-        local review=`git config --get remote.aosqp.review`
+        local review=`git config --get remote.keepqassa.review`
     fi
-    local project=`git config --get remote.aosqp.projectname`
+    local project=`git config --get remote.keepqassa.projectname`
     if [ -z "$project" ]
     then
-        local project=`git config --get remote.aosqp.projectname`
+        local project=`git config --get remote.keepqassa.projectname`
         local remote_branch=Q
     fi
     local command=$1
@@ -430,7 +430,7 @@ EOF
             case $1 in
                 __cmg_*) echo "For internal use only." ;;
                 changes|for)
-                    if [ "$FUNCNAME" = "aosqpgerrit" ]; then
+                    if [ "$FUNCNAME" = "keepqassagerrit" ]; then
                         echo "'$FUNCNAME $1' is deprecated."
                     fi
                     ;;
@@ -515,7 +515,7 @@ EOF
                 $local_branch:refs/for/$remote_branch || return 1
             ;;
         changes|for)
-            if [ "$FUNCNAME" = "aosqpgerrit" ]; then
+            if [ "$FUNCNAME" = "keepqassagerrit" ]; then
                 echo >&2 "'$FUNCNAME $command' is deprecated."
             fi
             ;;
@@ -614,15 +614,15 @@ EOF
     esac
 }
 
-function aosqprebase() {
+function keepqassarebase() {
     local repo=$1
     local refs=$2
     local pwd="$(pwd)"
     local dir="$(gettop)/$repo"
 
     if [ -z $repo ] || [ -z $refs ]; then
-        echo "AOSQP Gerrit Rebase Usage: "
-        echo "      aosqp <path to project> <patch IDs on Gerrit>"
+        echo "keepQASSA Gerrit Rebase Usage: "
+        echo "      keepqassa <path to project> <patch IDs on Gerrit>"
         echo "      The patch IDs appear on the Gerrit commands that are offered."
         echo "      They consist on a series of numbers and slashes, after the text"
         echo "      refs/changes. For example, the ID in the following command is 26/8126/2"
@@ -637,17 +637,17 @@ function aosqprebase() {
         return
     fi
     cd $dir
-    repo=$(git config --get remote.aosqp.projectname)
+    repo=$(git config --get remote.keepqassa.projectname)
     if [ -z "$repo" ]
     then
-        repo=$(git config --get remote.aosqp.projectname)
+        repo=$(git config --get remote.keepqassa.projectname)
     fi
     echo "Starting branch..."
     repo start tmprebase .
     echo "Bringing it up to date..."
     repo sync .
     echo "Fetching change..."
-    git fetch "http://gerrit.aosqp.org/p/$repo" "refs/changes/$refs" && git cherry-pick FETCH_HEAD
+    git fetch "http://gerrit.keepqassa.org/p/$repo" "refs/changes/$refs" && git cherry-pick FETCH_HEAD
     if [ "$?" != "0" ]; then
         echo "Error cherry-picking. Not uploading!"
         return
@@ -731,7 +731,7 @@ function dopush()
         echo "Device Found."
     fi
 
-    if (adb shell getprop ro.aosqp.device | grep -q "$AOSQP_BUILD") || [ "$FORCE_PUSH" = "true" ];
+    if (adb shell getprop ro.qassa.device | grep -q "$QASSA_BUILD") || [ "$FORCE_PUSH" = "true" ];
     then
     # retrieve IP and PORT info if we're using a TCP connection
     TCPIPPORT=$(adb devices \
@@ -850,7 +850,7 @@ EOF
     rm -f $OUT/.log
     return 0
     else
-        echo "The connected device does not appear to be $AOSQP_BUILD, run away!"
+        echo "The connected device does not appear to be $QASSA_BUILD, run away!"
     fi
 }
 
@@ -863,7 +863,7 @@ alias cmkap='dopush cmka'
 
 function repopick() {
     T=$(gettop)
-    $T/vendor/aosqp/build/tools/repopick.py $@
+    $T/vendor/qassa/build/tools/repopick.py $@
 }
 
 function fixup_common_out_dir() {

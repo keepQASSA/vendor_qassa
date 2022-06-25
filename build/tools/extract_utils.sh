@@ -3,7 +3,7 @@
 # Copyright (C) 2016 The CyanogenMod Project
 # Copyright (C) 2017-2019 The LineageOS Project
 #           (C) 2018 The PixelExperience Project
-#           (C) 2022 AOSQP
+#           (C) 2022 QASSA
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ trap cleanup 0
 #
 # $1: device name
 # $2: vendor name
-# $3: aosqp root directory
+# $3: qassa root directory
 # $4: is common device - optional, default to false
 # $5: cleanup - optional, default to true
 # $6: custom vendor makefile name - optional, default to false
@@ -70,15 +70,15 @@ function setup_vendor() {
         exit 1
     fi
 
-    export AOSQP_ROOT="$3"
-    if [ ! -d "$AOSQP_ROOT" ]; then
-        echo "\$AOSQP_ROOT must be set and valid before including this script!"
+    export QASSA_ROOT="$3"
+    if [ ! -d "$QASSA_ROOT" ]; then
+        echo "\$QASSA_ROOT must be set and valid before including this script!"
         exit 1
     fi
 
     export OUTDIR=vendor/"$VENDOR"/"$DEVICE"
-    if [ ! -d "$AOSQP_ROOT/$OUTDIR" ]; then
-        mkdir -p "$AOSQP_ROOT/$OUTDIR"
+    if [ ! -d "$QASSA_ROOT/$OUTDIR" ]; then
+        mkdir -p "$QASSA_ROOT/$OUTDIR"
     fi
 
     VNDNAME="$6"
@@ -86,10 +86,10 @@ function setup_vendor() {
         VNDNAME="$DEVICE"
     fi
 
-    export PRODUCTMK="$AOSQP_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
-    export ANDROIDBP="$AOSQP_ROOT"/"$OUTDIR"/Android.bp
-    export ANDROIDMK="$AOSQP_ROOT"/"$OUTDIR"/Android.mk
-    export BOARDMK="$AOSQP_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
+    export PRODUCTMK="$QASSA_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
+    export ANDROIDBP="$QASSA_ROOT"/"$OUTDIR"/Android.bp
+    export ANDROIDMK="$QASSA_ROOT"/"$OUTDIR"/Android.mk
+    export BOARDMK="$QASSA_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
 
     if [ "$4" == "true" ] || [ "$4" == "1" ]; then
         COMMON=1
@@ -1253,7 +1253,7 @@ function get_file() {
 # Convert apk|jar .odex in the corresposing classes.dex
 #
 function oat2dex() {
-    local AOSQP_TARGET="$1"
+    local QASSA_TARGET="$1"
     local OEM_TARGET="$2"
     local SRC="$3"
     local TARGET=
@@ -1261,16 +1261,16 @@ function oat2dex() {
     local HOST="$(uname | tr '[:upper:]' '[:lower:]')"
 
     if [ -z "$BAKSMALIJAR" ] || [ -z "$SMALIJAR" ]; then
-        export BAKSMALIJAR="$AOSQP_ROOT"/prebuilts/tools-aosqp/common/smali/baksmali.jar
-        export SMALIJAR="$AOSQP_ROOT"/prebuilts/tools-aosqp/common/smali/smali.jar
+        export BAKSMALIJAR="$QASSA_ROOT"/prebuilts/tools-qassa/common/smali/baksmali.jar
+        export SMALIJAR="$QASSA_ROOT"/prebuilts/tools-qassa/common/smali/smali.jar
     fi
 
     if [ -z "$VDEXEXTRACTOR" ]; then
-        export VDEXEXTRACTOR="$AOSQP_ROOT"/prebuilts/tools-aosqp/${HOST}-x86/bin/vdexExtractor
+        export VDEXEXTRACTOR="$QASSA_ROOT"/prebuilts/tools-qassa/${HOST}-x86/bin/vdexExtractor
     fi
 
     if [ -z "$CDEXCONVERTER" ]; then
-        export CDEXCONVERTER="$AOSQP_ROOT"/prebuilts/tools-aosqp/${HOST}-x86/bin/compact_dex_converter
+        export CDEXCONVERTER="$QASSA_ROOT"/prebuilts/tools-qassa/${HOST}-x86/bin/compact_dex_converter
     fi
 
     # Extract existing boot.oats to the temp folder
@@ -1290,11 +1290,11 @@ function oat2dex() {
         FULLY_DEODEXED=1 && return 0 # system is fully deodexed, return
     fi
 
-    if [ ! -f "$AOSQP_TARGET" ]; then
+    if [ ! -f "$QASSA_TARGET" ]; then
         return;
     fi
 
-    if grep "classes.dex" "$AOSQP_TARGET" >/dev/null; then
+    if grep "classes.dex" "$QASSA_TARGET" >/dev/null; then
         return 0 # target apk|jar is already odexed, return
     fi
 
@@ -1322,7 +1322,7 @@ function oat2dex() {
                 java -jar "$BAKSMALIJAR" deodex -o "$TMPDIR/dexout" -b "$BOOTOAT" -d "$TMPDIR" "$TMPDIR/$(basename "$OAT")"
                 java -jar "$SMALIJAR" assemble "$TMPDIR/dexout" -o "$TMPDIR/classes.dex"
             fi
-        elif [[ "$AOSQP_TARGET" =~ .jar$ ]]; then
+        elif [[ "$QASSA_TARGET" =~ .jar$ ]]; then
             JAROAT="$TMPDIR/system/framework/$ARCH/boot-$(basename ${OEM_TARGET%.*}).oat"
             JARVDEX="/system/framework/boot-$(basename ${OEM_TARGET%.*}).vdex"
             if [ ! -f "$JAROAT" ]; then
@@ -1517,7 +1517,7 @@ function extract() {
     local FIXUP_HASHLIST=( ${PRODUCT_COPY_FILES_FIXUP_HASHES[@]} ${PRODUCT_PACKAGES_FIXUP_HASHES[@]} )
     local PRODUCT_COPY_FILES_COUNT=${#PRODUCT_COPY_FILES_LIST[@]}
     local COUNT=${#FILELIST[@]}
-    local OUTPUT_ROOT="$AOSQP_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_ROOT="$QASSA_ROOT"/"$OUTDIR"/proprietary
     local OUTPUT_TMP="$TMPDIR"/"$OUTDIR"/proprietary
 
     if [ "$SRC" = "adb" ]; then
@@ -1554,7 +1554,7 @@ function extract() {
                 fi
                 if [ -a "$DUMPDIR"/"$PARTITION".new.dat ]; then
                     echo "Converting "$PARTITION".new.dat to "$PARTITION".img"
-                    python "$AOSQP_ROOT"/vendor/aosqp/build/tools/sdat2img.py "$DUMPDIR"/"$PARTITION".transfer.list "$DUMPDIR"/"$PARTITION".new.dat "$DUMPDIR"/"$PARTITION".img 2>&1
+                    python "$QASSA_ROOT"/vendor/qassa/build/tools/sdat2img.py "$DUMPDIR"/"$PARTITION".transfer.list "$DUMPDIR"/"$PARTITION".new.dat "$DUMPDIR"/"$PARTITION".img 2>&1
                     rm -rf "$DUMPDIR"/"$PARTITION".new.dat "$DUMPDIR"/"$PARTITION"
                     mkdir "$DUMPDIR"/"$PARTITION" "$DUMPDIR"/tmp
                     echo "Requesting sudo access to mount the "$PARTITION".img"
@@ -1779,7 +1779,7 @@ function extract2() {
     local FIXUP_HASHLIST=( ${PRODUCT_COPY_FILES_FIXUP_HASHES[@]} ${PRODUCT_PACKAGES_FIXUP_HASHES[@]} )
     local PRODUCT_COPY_FILES_COUNT=${#PRODUCT_COPY_FILES_LIST[@]}
     local COUNT=${#FILELIST[@]}
-    local OUTPUT_ROOT="$AOSQP_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_ROOT="$QASSA_ROOT"/"$OUTDIR"/proprietary
     local OUTPUT_TMP="$TMPDIR"/"$OUTDIR"/proprietary
 
     if [ "$ADB" = true ]; then
@@ -1966,7 +1966,7 @@ function extract_firmware() {
     local FILELIST=( ${PRODUCT_COPY_FILES_LIST[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_DIR="$AOSQP_ROOT"/"$OUTDIR"/radio
+    local OUTPUT_DIR="$QASSA_ROOT"/"$OUTDIR"/radio
 
     if [ "$VENDOR_RADIO_STATE" -eq "0" ]; then
         echo "Cleaning firmware output directory ($OUTPUT_DIR).."

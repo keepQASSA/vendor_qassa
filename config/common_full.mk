@@ -1,4 +1,4 @@
-# Inherit common AOSQP stuff
-$(call inherit-product, vendor/aosqp/config/common.mk)
+# Inherit common QASSA stuff
+$(call inherit-product, vendor/qassa/config/common.mk)
 
 PRODUCT_SIZE := full

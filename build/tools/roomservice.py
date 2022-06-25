@@ -42,11 +42,11 @@ except ImportError:
 
 DEBUG = False
 
-aosqp_local_manifest = ".repo/local_manifests/aosqp.xml"
-aosqp_default_revision =  os.getenv('ROOMSERVICE_DEFAULT_BRANCH', 'Q')
-aosqp_dependencies = "aosqp.dependencies"
-org_manifest = "aosqp-devices"  # leave empty if org is provided in manifest
-org_display = "AOSQP-Devices"  # needed for displaying
+qassa_local_manifest = ".repo/local_manifests/qassa.xml"
+qassa_default_revision =  os.getenv('ROOMSERVICE_DEFAULT_BRANCH', 'Q')
+qassa_dependencies = "qassa.dependencies"
+org_manifest = "qassa-devices"  # leave empty if org is provided in manifest
+org_display = "QASSA-Devices"  # needed for displaying
 
 github_auth = None
 
@@ -102,8 +102,8 @@ def load_manifest(manifest):
     return man
 
 def get_from_manifest(device_name):
-    if os.path.exists(aosqp_local_manifest):
-        man = load_manifest(aosqp_local_manifest)
+    if os.path.exists(qassa_local_manifest):
+        man = load_manifest(qassa_local_manifest)
         for local_path in man.findall("project"):
             lp = local_path.get("path").strip('/')
             if lp.startswith("device/") and lp.endswith("/" + device_name):
@@ -112,7 +112,7 @@ def get_from_manifest(device_name):
 
 
 def is_in_manifest(project_path):
-    man = load_manifest(aosqp_local_manifest)
+    man = load_manifest(qassa_local_manifest)
     for local_path in man.findall("project"):
         if local_path.get("path") == project_path:
             return True
@@ -120,7 +120,7 @@ def is_in_manifest(project_path):
 
 
 def add_to_manifest(repos, fallback_branch=None):
-    lm = load_manifest(aosqp_local_manifest)
+    lm = load_manifest(qassa_local_manifest)
 
     for repo in repos:
         repo_name = repo['repository']
@@ -128,7 +128,7 @@ def add_to_manifest(repos, fallback_branch=None):
         if 'branch' in repo:
             repo_branch=repo['branch']
         else:
-            repo_branch=aosqp_default_revision
+            repo_branch=qassa_default_revision
         if 'remote' in repo:
             repo_remote=repo['remote']
         elif "/" not in repo_name:
@@ -170,7 +170,7 @@ def add_to_manifest(repos, fallback_branch=None):
     raw_xml = "\n".join(('<?xml version="1.0" encoding="UTF-8"?>',
                          ElementTree.tostring(lm).decode()))
 
-    f = open(aosqp_local_manifest, 'w')
+    f = open(qassa_local_manifest, 'w')
     f.write(raw_xml)
     f.close()
 
@@ -185,7 +185,7 @@ def fetch_dependencies(repo_path, fallback_branch=None):
 
     print('Looking for dependencies')
 
-    dep_p = '/'.join((repo_path, aosqp_dependencies))
+    dep_p = '/'.join((repo_path, qassa_dependencies))
     if os.path.exists(dep_p):
         with open(dep_p) as dep_f:
             dependencies = json.load(dep_f)
@@ -199,7 +199,7 @@ def fetch_dependencies(repo_path, fallback_branch=None):
     for dependency in dependencies:
         if not is_in_manifest(dependency['target_path']):
             if not dependency.get('branch'):
-                dependency['branch'] = aosqp_default_revision
+                dependency['branch'] = qassa_default_revision
 
             fetch_list.append(dependency)
             syncable_repos.append(dependency['target_path'])
@@ -233,12 +233,12 @@ def detect_revision(repo):
     add_auth(githubreq)
     result = json.loads(urllib.request.urlopen(githubreq).read().decode())
 
-    print("Calculated revision: %s" % aosqp_default_revision)
+    print("Calculated revision: %s" % qassa_default_revision)
 
-    if has_branch(result, aosqp_default_revision):
-        return aosqp_default_revision
+    if has_branch(result, qassa_default_revision):
+        return qassa_default_revision
 
-    print("Branch %s not found" % aosqp_default_revision)
+    print("Branch %s not found" % qassa_default_revision)
     sys.exit()
 
 
@@ -311,7 +311,7 @@ def main():
     print("Repository for %s not found in the %s Github repository list."
           % (device, org_display))
     print("If this is in error, you may need to manually add it to your "
-          "%s" % aosqp_local_manifest)
+          "%s" % qassa_local_manifest)
 
 if __name__ == "__main__":
     main()

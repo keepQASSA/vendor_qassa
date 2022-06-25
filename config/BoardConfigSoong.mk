@@ -12,13 +12,13 @@ EXPORT_TO_SOONG := \
     TARGET_KERNEL_SOURCE \
     TARGET_KERNEL_HEADERS
 
-SOONG_CONFIG_NAMESPACES += aosqpVarsPlugin
+SOONG_CONFIG_NAMESPACES += qassaVarsPlugin
 
-SOONG_CONFIG_aosqpVarsPlugin :=
+SOONG_CONFIG_qassaVarsPlugin :=
 
 define addVar
-  SOONG_CONFIG_aosqpVarsPlugin += $(1)
-  SOONG_CONFIG_aosqpVarsPlugin_$(1) := $$(subst ",\",$$($1))
+  SOONG_CONFIG_qassaVarsPlugin += $(1)
+  SOONG_CONFIG_qassaVarsPlugin_$(1) := $$(subst ",\",$$($1))
 endef
 
 $(foreach v,$(EXPORT_TO_SOONG),$(eval $(call addVar,$(v))))

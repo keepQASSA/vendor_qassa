@@ -1,2 +1,2 @@
-# Inherit full common AOSQP stuff
-$(call inherit-product, vendor/aosqp/config/common_full.mk)
+# Inherit full common QASSA stuff
+$(call inherit-product, vendor/qassa/config/common_full.mk)
