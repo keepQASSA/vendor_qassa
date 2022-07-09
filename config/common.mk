@@ -186,4 +186,7 @@ include vendor/google-customization/config.mk
 # Packages
 include vendor/qassa/config/packages.mk
 
+# qassa
+include vendor/qassa/config/qassa.mk
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
