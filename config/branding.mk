@@ -7,7 +7,6 @@ QASSA_DATE_DAY := $(shell date -u +%d)
 QASSA_DATE_HOUR := $(shell date -u +%H)
 QASSA_DATE_MINUTE := $(shell date -u +%M)
 QASSA_BUILD_DATE_UTC := $(shell date -d '$(QASSA_DATE_YEAR)-$(QASSA_DATE_MONTH)-$(QASSA_DATE_DAY) $(QASSA_DATE_HOUR):$(QASSA_DATE_MINUTE) UTC' +%s)
-QASSA_BUILD_DATE_SHORT := $(QASSA_DATE_YEAR)$(QASSA_DATE_MONTH)$(QASSA_DATE_DAY)
 QASSA_BUILD_DATE := $(QASSA_DATE_YEAR)$(QASSA_DATE_MONTH)$(QASSA_DATE_DAY)-$(QASSA_DATE_HOUR)$(QASSA_DATE_MINUTE)
 
 TARGET_PRODUCT_SHORT := $(subst qassa_,,$(QASSA_BUILD))
@@ -24,5 +23,4 @@ QASSA_PROPERTIES := \
     ro.qassa.version.display=$(QASSA_VERSION) \
     ro.qassa.version.number=$(QASSA_VERSION_NUMBER) \
     ro.qassa.build_date=$(QASSA_BUILD_DATE) \
-    ro.qassa.build_date_short=$(QASSA_BUILD_DATE_SHORT) \
     ro.qassa.build_date_utc=$(QASSA_BUILD_DATE_UTC)
