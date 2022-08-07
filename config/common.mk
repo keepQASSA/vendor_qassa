@@ -177,8 +177,8 @@ ifeq ($(WITH_GAPPS),true)
 include vendor/gapps/config.mk
 endif
 
-# Pixel Style
-include vendor/pixelstyle/config.mk
+# keepQASSA
+include vendor/keepQASSA/config.mk
 
 # Customization
 include vendor/google-customization/config.mk
