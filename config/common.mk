@@ -54,7 +54,9 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/qassa/config/permissions/backup.xml:system/etc/sysconfig/backup.xml \
     vendor/qassa/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lineagehw.xml \
-    vendor/qassa/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml
+    vendor/qassa/config/permissions/privapp-permissions-livedisplay.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-livedisplay.xml \
+    vendor/qassa/config/permissions/privapp-permissions-qassa-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-qassa.xml \
+    vendor/qassa/config/permissions/privapp-permissions-qassa-system.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qassa.xml
 
 # Copy all qassa init rc files
 $(foreach f,$(wildcard vendor/qassa/prebuilt/common/etc/init/*.rc),\
