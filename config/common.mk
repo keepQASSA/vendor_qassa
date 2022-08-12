@@ -151,10 +151,6 @@ PRODUCT_PACKAGES += \
     misc_writer_system \
     themed_bootanimation
 
-# Screen recorder
-PRODUCT_PACKAGES += \
-    Recorder
-
 # Long Screenshot
 PRODUCT_PACKAGES += \
     StitchImage
