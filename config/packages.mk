@@ -6,6 +6,12 @@ PRODUCT_PACKAGES += \
     DeskClock \
     Gallery2 \
     LatinIME \
-    Launcher3 \
     messaging \
     WallpaperPicker2
+
+# GApps
+ifneq ($(WITH_GAPPS),true)
+# Packages
+PRODUCT_PACKAGES += \
+    Launcher3
+endif
