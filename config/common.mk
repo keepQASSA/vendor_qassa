@@ -173,6 +173,21 @@ include vendor/qassa/config/branding.mk
 # GApps
 ifeq ($(WITH_GAPPS),true)
 include vendor/gapps/config.mk
+
+# Dex preopt
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    NexusLauncherRelease
+
+else
+
+# ShadyQuickStep
+PRODUCT_PACKAGES += \
+    ShadyQuickStep
+
+# Launcher overlay
+PRODUCT_PACKAGES += \
+    ShadyQuickStepAppLockOverlay
+
 endif
 
 # keepQASSA
@@ -187,13 +202,5 @@ include vendor/qassa/config/packages.mk
 # GamingMode
 PRODUCT_PACKAGES += \
     GamingMode
-
-# ShadyQuickStep
-PRODUCT_PACKAGES += \
-    ShadyQuickStep
-
-# Launcher overlay
-PRODUCT_PACKAGES += \
-    ShadyQuickStepAppLockOverlay
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
