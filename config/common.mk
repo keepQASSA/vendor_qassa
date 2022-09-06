@@ -214,4 +214,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     SoftAPManager
 
+# StatusBarLyricExt
+PRODUCT_PACKAGES += \
+    StatusBarLyricExt
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
