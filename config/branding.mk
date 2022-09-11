@@ -1,6 +1,6 @@
 # Set all versions
 QASSA_VERSION_NUMBER := v2.1
-QASSA_SECURITY_PATCH := 2022-08-05
+QASSA_SECURITY_PATCH := 2022-09-05
 
 QASSA_DATE_YEAR := $(shell date -u +%Y)
 QASSA_DATE_MONTH := $(shell date -u +%m)
