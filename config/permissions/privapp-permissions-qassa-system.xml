@@ -38,4 +38,8 @@
         <permission name="android.permission.READ_LOGS"/>
     </privapp-permissions>
 
+    <privapp-permissions package="com.google.android.calendar">
+        <permission name="android.permission.INTERACT_ACROSS_PROFILES"/>
+    </privapp-permissions>
+
 </permissions>
