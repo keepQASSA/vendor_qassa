@@ -1,6 +1,5 @@
 # Set all versions
 QASSA_VERSION_NUMBER := v2.1
-QASSA_SECURITY_PATCH := 2022-11-05
 
 QASSA_DATE_YEAR := $(shell date -u +%Y)
 QASSA_DATE_MONTH := $(shell date -u +%m)
@@ -24,5 +23,4 @@ QASSA_PROPERTIES := \
     ro.qassa.version.display=$(QASSA_VERSION) \
     ro.qassa.version.number=$(QASSA_VERSION_NUMBER) \
     ro.qassa.build_date=$(QASSA_BUILD_DATE) \
-    ro.qassa.build_date_utc=$(QASSA_BUILD_DATE_UTC) \
-    ro.qassa.build_security_patch=$(QASSA_SECURITY_PATCH)
+    ro.qassa.build_date_utc=$(QASSA_BUILD_DATE_UTC)
