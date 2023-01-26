@@ -8,8 +8,13 @@ PRODUCT_PACKAGES += \
     LatinIME \
     messaging \
     WallpaperPicker2 \
-    MatLog \
     ExactCalculator
+
+# Matlog
+ifneq ($(TARGET_EXCLUDE_MATLOG),true)
+PRODUCT_PACKAGES += \
+    MatLog
+endif
 
 # GApps
 ifneq ($(WITH_GAPPS),true)
