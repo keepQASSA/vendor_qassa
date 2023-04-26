@@ -1,5 +1,5 @@
 # Set all versions
-QASSA_VERSION_NUMBER := v2.1
+QASSA_VERSION_NUMBER := v2.2
 
 QASSA_DATE_YEAR := $(shell date -u +%Y)
 QASSA_DATE_MONTH := $(shell date -u +%m)
