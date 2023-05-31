@@ -221,4 +221,7 @@ PRODUCT_PACKAGES += \
 # Charging animation
 include vendor/qassa/config/charger.mk
 
+# Call the overlays folder to build all the rest
+include packages/overlays/qassa/qassa.mk
+
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
