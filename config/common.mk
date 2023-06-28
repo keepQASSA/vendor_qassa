@@ -214,10 +214,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     SoftAPManager
 
-# StatusBarLyricExt
-PRODUCT_PACKAGES += \
-    StatusBarLyricExt
-
 # Charging animation
 include vendor/qassa/config/charger.mk
 
