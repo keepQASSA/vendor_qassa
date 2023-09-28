@@ -233,3 +233,9 @@ PRODUCT_BOOT_JARS += \
     UxPerformance
 endif
 endif
+
+# Camera
+ifneq ($(TARGET_APERTURE_OPTOUT),true)
+PRODUCT_PACKAGES += \
+    Aperture
+endif
