@@ -222,11 +222,14 @@ include packages/overlays/qassa/qassa.mk
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
 
+# QTI Perf
 ifeq ($(BOARD_USES_QCOM_HARDWARE),)
+ifneq ($(QTI_OPTOUT),true)
 -include vendor/qcom/common/perf/perf-vendor.mk
 TARGET_COMMON_QTI_COMPONENTS := perf
 
 PRODUCT_BOOT_JARS += \
     QPerformance \
     UxPerformance
+endif
 endif
