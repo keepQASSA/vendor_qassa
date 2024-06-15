@@ -239,3 +239,6 @@ ifneq ($(TARGET_APERTURE_OPTOUT),true)
 PRODUCT_PACKAGES += \
     Aperture
 endif
+
+# Keys for sign
+$(call inherit-product-if-exists, vendor/qassa/signing/keys.mk)
