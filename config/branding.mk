@@ -1,6 +1,6 @@
 # Set all versions
 QASSA_BUILD_CODENAME := Sisu
-QASSA_VERSION_NUMBER := v2.2-0.s
+QASSA_VERSION_NUMBER := v2.3.s
 
 QASSA_DATE_YEAR := $(shell date -u +%Y)
 QASSA_DATE_MONTH := $(shell date -u +%m)
