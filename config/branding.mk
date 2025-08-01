@@ -1,6 +1,6 @@
 # Set all versions
 QASSA_BUILD_CODENAME := Sisu
-QASSA_VERSION_NUMBER := v2.4.s
+QASSA_VERSION_NUMBER := v2.4_0.s-beta
 
 # byNgantu (official)
 QASSA_BUILD_TYPE ?= COMMUNITY
